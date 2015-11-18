@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: grammar-model
+Bundle-SymbolicName: grammar-model
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: grammar-model.jar,
+ anastasiaizmaylova/.ivy2/cache/junit/junit/jars/junit-4.11.jar,
+ anastasiaizmaylova/.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar,
+ anastasiaizmaylova/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-2.2.4.jar,
+ anastasiaizmaylova/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.2.jar

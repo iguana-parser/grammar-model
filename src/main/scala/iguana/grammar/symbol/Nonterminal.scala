@@ -35,12 +35,12 @@ trait NonterminalType extends AbstractSymbolType {
       
       var variable: String = nt.variable
       
-      def build = Nonterminal(name, preConditions, postConditions, label, variable)
-      
       def setVariable(variable: String): this.type = {
         this.variable = variable
         this
       }
+      
+      def build = Nonterminal(name, preConditions, postConditions, label, variable)
       
     }
     

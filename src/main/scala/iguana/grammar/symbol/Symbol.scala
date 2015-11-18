@@ -23,8 +23,6 @@ trait SymbolType {
     
     def accept[T](v: Visitor[T]): T
     
-    def constructorCode: String
-    
   }
   
   trait SymbolVisitor[T] { def visitSymbol(symbol: Symbol): T }
@@ -47,12 +45,14 @@ trait SymbolType {
     def addPreConditions(conditions: java.util.Set[Condition]): this.type = {
       val preConditions = new java.util.HashSet(this.preConditions)
       preConditions.addAll(conditions)
+      setPreConditions(preConditions)
       this
     }
     
     def addPostConditions(conditions: java.util.Set[Condition]): this.type = {
       val postConditions = new java.util.HashSet(this.postConditions)
       postConditions.addAll(conditions)
+      setPostConditions(postConditions)
       this
     }
     

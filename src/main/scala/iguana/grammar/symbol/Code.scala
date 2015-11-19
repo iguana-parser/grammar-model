@@ -9,7 +9,7 @@ trait CodeType extends AbstractSymbolType with StatementType {
   
   type Visitor[T] <: SymbolVisitor[T]
   
-  trait SymbolVisitor[T] extends super.SymbolVisitor[T] { }
+  trait SymbolVisitor[T] extends super.SymbolVisitor[T] { def visitCode(symbol: Code): T }
   
   case class Code(val statements: java.util.List[Statement]) extends Symbol {
     
@@ -18,10 +18,10 @@ trait CodeType extends AbstractSymbolType with StatementType {
     def postConditions = new java.util.HashSet()
     def label = ""
     
-    type Builder <: SymbolBuilder
-    def copyBuilder: Builder = ???
+    type Builder = Code.Builder
+    def copyBuilder: Builder = new Builder(this)
     
-    def accept[T](v: Visitor[T]): T = ???
+    def accept[T](v: Visitor[T]): T = v.visitCode(this)
   }
   
   object Code {

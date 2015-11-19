@@ -24,7 +24,7 @@
  * OF SUCH DAMAGE.
  *
  */
-package iguana.grammar.expression
+package iguana.grammar.ast
 
 import scala.collection.JavaConversions._
 

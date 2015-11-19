@@ -24,17 +24,30 @@
  * OF SUCH DAMAGE.
  *
  */
-package iguana.grammar.expression
+package iguana.grammar.ast
 
 /**
  * @author Anastasia Izmaylova
  */
-trait AbstractASTType {
+trait StatementType extends AbstractASTType with ExpressionType with VariableDeclarationType {
   
   type ASTVisitor[T] <: AbstractASTVisitor[T]
   
-  trait AbstractASTVisitor[T]
+  trait Statement extends AbstractAST
   
-  trait AbstractAST { def accept[T](v: ASTVisitor[T]): T }
+  case class ExpressionStatement(val expression: Expression) extends Statement {
+    def accept[T](v: ASTVisitor[T]) = v.visitExpressionStatement(this)
+    override def toString = expression.toString()
+  }
+  
+  case class VariableDeclarationStatement(val declaration: VariableDeclaration) extends Statement {
+    def accept[T](v: ASTVisitor[T]) = v.visitVariableDeclarationStatement(this)
+    override def toString = declaration.toString()
+  }
+  
+  trait AbstractASTVisitor[T] extends super.AbstractASTVisitor[T] {
+    def visitExpressionStatement(statement: ExpressionStatement): T
+    def visitVariableDeclarationStatement(statement: VariableDeclarationStatement): T
+  }
   
 }

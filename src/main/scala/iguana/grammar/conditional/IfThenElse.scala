@@ -27,7 +27,7 @@
 package iguana.grammar.conditional
 
 import iguana.grammar.symbol.AbstractSymbolType
-import iguana.grammar.expression.ExpressionType
+import iguana.grammar.ast.ExpressionType
 
 /**
  * @author Anastasia Izmaylova

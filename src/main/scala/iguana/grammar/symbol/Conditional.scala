@@ -26,7 +26,7 @@
  */
 package iguana.grammar.symbol
 
-import iguana.grammar.expression.ExpressionType
+import iguana.grammar.ast.ExpressionType
 
 /**
  * @author Anastasia Izmaylova

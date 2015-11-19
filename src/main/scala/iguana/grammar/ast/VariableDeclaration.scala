@@ -24,30 +24,37 @@
  * OF SUCH DAMAGE.
  *
  */
-package iguana.grammar.expression
+package iguana.grammar.ast
 
 /**
  * @author Anastasia Izmaylova
  */
-trait StatementType extends AbstractASTType with ExpressionType with VariableDeclarationType {
+trait VariableDeclarationType extends AbstractASTType with ExpressionType {
   
   type ASTVisitor[T] <: AbstractASTVisitor[T]
   
-  trait Statement extends AbstractAST
+  trait VariableDeclaration extends AbstractAST
   
-  case class ExpressionStatement(val expression: Expression) extends Statement {
-    def accept[T](v: ASTVisitor[T]) = v.visitExpressionStatement(this)
-    override def toString = expression.toString()
+  case class VariableDeclarationInit(val id: java.lang.String, 
+                                     val i: java.lang.Integer,
+                                     val expression: Expression) extends VariableDeclaration {
+    def accept[T](v: ASTVisitor[T]) = v.visitVariableDeclarationInit(this)
+    override def toString = id + (if (i == -1) "" else ":" + i) + "=" + expression.toString()
   }
   
-  case class VariableDeclarationStatement(val declaration: VariableDeclaration) extends Statement {
-    def accept[T](v: ASTVisitor[T]) = v.visitVariableDeclarationStatement(this)
-    override def toString = declaration.toString()
+  object VariableDeclarationInit { def apply(id: java.lang.String, expression: Expression): VariableDeclarationInit = VariableDeclarationInit(id, -1, expression) }
+  
+  case class VariableDeclarationNoInit(val id: java.lang.String,
+                                       val i: java.lang.Integer) extends VariableDeclaration {
+    def accept[T](v: ASTVisitor[T]) = v.visitVariableDeclarationNoInit(this)
+    override def toString = id + (if (i == -1) "" else ":" + i)
   }
+  
+  object VariableDeclarationNoInit { def apply(id: java.lang.String): VariableDeclarationNoInit = VariableDeclarationNoInit(id, -1) }
   
   trait AbstractASTVisitor[T] extends super.AbstractASTVisitor[T] {
-    def visitExpressionStatement(statement: ExpressionStatement): T
-    def visitVariableDeclarationStatement(statement: VariableDeclarationStatement): T
+    def visitVariableDeclarationInit(declaration: VariableDeclarationInit): T
+    def visitVariableDeclarationNoInit(declaration: VariableDeclarationNoInit): T
   }
   
 }

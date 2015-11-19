@@ -21,7 +21,7 @@ trait IgnoreType extends AbstractSymbolType {
     type Builder = Ignore.Builder
     def copyBuilder = new Ignore.Builder(this)
     
-    def accept[T](v: Visitor[T]): T = v.visitIgnore(this)
+    def accept[T](v: Visitor[T]) = v.visitIgnore(this)
     
   }
   

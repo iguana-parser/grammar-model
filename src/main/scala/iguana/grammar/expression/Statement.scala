@@ -3,8 +3,8 @@ package iguana.grammar.expression
 /**
  * @author Anastasia Izmaylova
  */
-trait StatementType {
+trait StatementType extends AbstractASTType {
   
-  trait Statement
+  trait Statement extends AbstractAST
   
 }

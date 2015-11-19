@@ -14,7 +14,7 @@ trait IfThenElseType extends AbstractSymbolType with ExpressionType {
   
   case class IfThenElse(val preConditions: java.util.Set[Condition] = new java.util.HashSet(),
                         val postConditions: java.util.Set[Condition] = new java.util.HashSet(),
-                        val label: String = "",
+                        val label: java.lang.String = "",
                         val condition: Expression,
                         val thenPart: Symbol,
                         val elsePart: Symbol) extends Symbol {

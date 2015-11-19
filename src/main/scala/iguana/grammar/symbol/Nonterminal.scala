@@ -23,8 +23,6 @@ trait NonterminalType extends AbstractSymbolType {
     
     def accept[T](v: Visitor[T]): T = v.visitNonterminal(this)
     
-    def constructorCode: String = ???
-    
   }
   
   object Nonterminal {

@@ -33,7 +33,17 @@ import iguana.grammar.ast.AbstractASTType
  */
 trait EvaluatorType extends AbstractASTType {
   
-  type EvaluatorContext
+  trait EvaluatorContext {
+    
+    def lookupVariable(name: java.lang.String): java.lang.Object
+    
+    def declareVariable(name: java.lang.String): Unit
+    
+    def declareVariable(name: java.lang.String, value: java.lang.Object): Unit
+    
+    def storeVariable(name: java.lang.String, value: java.lang.Object): Unit
+    
+  }
   
   trait Evaluator extends AbstractASTVisitor[java.lang.Object] { 
     self: ASTVisitor[java.lang.Object] => 

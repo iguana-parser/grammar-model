@@ -33,4 +33,12 @@ import iguana.grammar.ast.StatementType
  */
 trait StatementEvaluator extends EvaluatorType with StatementType {
   
+  trait Evaluator extends super.Evaluator with AbstractASTVisitor[java.lang.Object] {
+    self: ASTVisitor[java.lang.Object] =>
+    
+    def visitExpressionStatement(statement: ExpressionStatement) = ???
+    
+    def visitVariableDeclarationStatement(statement: VariableDeclarationStatement) = ???
+  }
+  
 }

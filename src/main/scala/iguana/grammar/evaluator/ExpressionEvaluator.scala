@@ -27,6 +27,8 @@
 package iguana.grammar.evaluator
 
 import iguana.grammar.ast.ExpressionType
+import java.util.ArrayList
+import scala.collection.JavaConversions._
 
 /**
  * @author Anastasia Izmaylova
@@ -36,17 +38,25 @@ trait ExpressionEvaluator extends EvaluatorType with ExpressionType {
   trait Evaluator extends super.Evaluator with AbstractASTVisitor[java.lang.Object] {
     self: ASTVisitor[java.lang.Object] =>
       
-    def visitBoolean(expression: Boolean) = ???
+    def visitBoolean(expression: Boolean) 
+      = if (expression == TRUE) new java.lang.Boolean(true) else new java.lang.Boolean(false)
     
-    def visitInteger(expression: Integer) = ???
+    def visitInteger(expression: Integer) = expression.value
     
-    def visitReal(expression: Real) = ???
+    def visitReal(expression: Real) = expression.value
     
-    def visitString(expression: String) = ???
+    def visitString(expression: String) = expression.value
     
-    def visitTuple(expression: Tuple) = ???
+    def visitTuple(expression: Tuple) = {
+        val es: Iterable[Expression] = expression.expressions
+        new ArrayList(es.map { e => e.accept(this) })
+    }
     
-    def visitName(expression: Name) = ???
+    def visitName(expression: Name) = {
+      val value = evaluatorContext.lookupVariable(expression.name)
+      if (value == null) throw new RuntimeException("Undeclared variable: " + expression.name)
+      value
+    }
     
     def visitCall(expression: Call) = ???
     

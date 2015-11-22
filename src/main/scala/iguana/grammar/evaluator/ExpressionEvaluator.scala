@@ -33,7 +33,7 @@ import scala.collection.JavaConversions._
 /**
  * @author Anastasia Izmaylova
  */
-trait ExpressionEvaluator extends EvaluatorType with ExpressionType {
+trait ExpressionEvaluatorType extends EvaluatorType with ExpressionType {
   
   trait Evaluator extends super.Evaluator with AbstractASTVisitor[java.lang.Object] {
     self: ASTVisitor[java.lang.Object] =>

@@ -24,27 +24,18 @@
  * OF SUCH DAMAGE.
  *
  */
-package iguana.grammar.evaluator
+package iguana.grammar.ast
 
-import iguana.grammar.ast.StatementType
 
 /**
  * @author Anastasia Izmaylova
  */
-trait StatementEvaluatorType extends EvaluatorType with StatementType {
+trait AST extends ExpressionType with StatementType with VariableDeclarationType {
   
-  trait Evaluator extends super.Evaluator with AbstractASTVisitor[java.lang.Object] {
-    self: ASTVisitor[java.lang.Object] =>
-    
-    def visitExpressionStatement(statement: ExpressionStatement) = {
-      statement.expression.accept(this)
-      null
-    }
-    
-    def visitVariableDeclarationStatement(statement: VariableDeclarationStatement) = {
-      statement.declaration.accept(this)
-      null
-    }
-  }
+  type ASTVisitor[T] <: AbstractASTVisitor[T]
+  
+  trait AbstractASTVisitor[T] extends super[ExpressionType].AbstractASTVisitor[T]
+                                 with super[StatementType].AbstractASTVisitor[T]
+                                 with super[VariableDeclarationType].AbstractASTVisitor[T]
   
 }

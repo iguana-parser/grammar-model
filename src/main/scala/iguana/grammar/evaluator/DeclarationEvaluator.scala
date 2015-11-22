@@ -31,12 +31,15 @@ import iguana.grammar.ast.VariableDeclarationType
 /**
  * @author Anastasia Izmaylova
  */
-trait DeclarationEvaluator extends EvaluatorType with VariableDeclarationType {
+trait DeclarationEvaluatorType extends EvaluatorType with VariableDeclarationType {
   
   trait Evaluator extends super.Evaluator with AbstractASTVisitor[java.lang.Object] {
     self: ASTVisitor[java.lang.Object] =>
       
-    def visitVariableDeclarationInit(declaration: VariableDeclarationInit) = ???
+    def visitVariableDeclarationInit(declaration: VariableDeclarationInit) = {
+      evaluatorContext.declareVariable(declaration.id, declaration.expression.accept(this))
+      null
+    }
     
     def visitVariableDeclarationNoInit(declaration: VariableDeclarationNoInit) = ???
     
